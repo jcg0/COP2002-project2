@@ -1,6 +1,6 @@
-name = "Jefferson Griebel"
-major = "Programming & Analysis"
-answer = "I want to have a deeper\nunderstanding about the right way to code."
+name = "My name is Jefferson Griebel. "
+major = "My major is Programming & Analysis."
+answer = "\nI'm most interested in this class because I want to have a deeper\nunderstanding about the right way to code."
 num1 = 49
 num2 = 31
 addition = num1+num2
@@ -8,8 +8,7 @@ subtraction = num1-num2
 multiply = num1*num2
 divide = num1/num2
 modulo = num1 % num2
-print(
-    f"My name is {name}. My major is {major}.\nI'm most interested in this class because {answer}")
+print(name + major + answer)
 
 print(f"{num1} + {num2} = {addition}")
 
