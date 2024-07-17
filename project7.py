@@ -10,7 +10,7 @@ class CreateJSONString:
         self.arrayKeys = arrayKeys
         self.arrayValues = arrayValues
         self.jsonString = ""
-        self.___________ = 1
+        self.counter = 1
 
     def headerJSON(self):
         """Opening { for JSON """
@@ -21,7 +21,7 @@ class CreateJSONString:
             self.jsonString += ","
 
         # Opening information for each object (row in CSV file)
-        self._________ += "\""+str(self.____________)+"\""+":"
+        self.arrayKeys += "\""+str(self.arrayValues)+"\""+":"
         self.counter += 1
 
     def footerJSON(self):
@@ -29,31 +29,31 @@ class CreateJSONString:
 
     def createJSON(self):
         # initialization JSON string
-        self._______________()
+        self.jsonString()
 
         # Create object string (i.e. CSV row to JSON)
         resultString = "{"
 
         count = 0
 
-        for key in self._________:
+        for key in self.arrayKeys:
             resultString += "\""+key+"\""
             resultString += ":"
 
-            value = str(self.____________[count])
+            value = str(self.arrayValues[count])
 
             if (value.isnumeric()):  # type(value) == int or type(value) == float
                 resultString += str(value)
             elif (value == "True" or value == "False"):
                 resultString += str(value).lower()
-            elif (value == _______):
+            elif (value == "null"):
                 resultString += value
             else:
-                resultString += _______________
+                resultString += value
 
             count += 1
 
-            if (len(self.________) > count):
+            if (len(self.arrayValues) > count):
                 resultString += ","
 
         # Add closing to this object
@@ -83,7 +83,7 @@ class CreateJSONString:
         self.arrayValues = []
 
         for item in line:
-            item = item.replace(______, "")
+            item = item.replace("\n", "")
             self.arrayValues.append(item)
 
         # print("Array values")
@@ -112,13 +112,13 @@ class CreateJSONString:
                 self.footerJSON()
 
         except FileNotFoundError:
-            print(____________________________________)
+            print(f"{filename} could not be found")
 
     def writeToFile(self, filename):
 
         try:
             with open(filename, "w") as file_object:
-                file_object.write(self.________________)
+                file_object.write(self.jsonString)
         except FileNotFoundError:
             print(f"Sorry, the file {filename} does not exist.")
 
@@ -130,7 +130,7 @@ def main():
     arrayKeys = []
     arrayValues = []
 
-    filename = (input("Enter the filename:  ")).______
+    filename = (input("Enter the filename:  ")).strip()
     # print(filename)
 
     outputFilename = (input("Enter the OUTPUT filename:  ")).strip()
@@ -139,13 +139,13 @@ def main():
     if (outputFilename == ""):
         outputFilename = "Project7Output.txt"
 
-    converted = ________________________________
+    converted = CreateJSONString(arrayKeys, arrayValues)
 
-    converted.____________(filename)
+    converted.inputStudentFile(filename)
 
-    print(converted.________________)
+    print(converted.inputStudentFile)
 
-    converted.__________(_____________)
+    converted.writeToFile(outputFilename)
 
     print("Output written to "+outputFilename+".")
 

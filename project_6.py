@@ -3,6 +3,7 @@
 # 07/06/2024
 # Project6: Files and Functions
 # Use functions to write files
+# -*- coding: utf-8 -*-
 from pathlib import Path
 
 program_codes = [
